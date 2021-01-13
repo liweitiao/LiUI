@@ -1,27 +1,49 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+// import Home from '../components/Home.vue'
+const Home = () => import(/* webpackChunkName: "home_tenant" */ '../components/Home.vue')
+
+// import Contract from '../components/Contract.vue'
+const Contract = () => import(/* webpackChunkName: "contract" */ '../components/Contract.vue')
+
+// import Tenant from '../components/Tenant.vue'
+const Tenant = () => import(/* webpackChunkName: "home_tenant" */ '../components/Tenant.vue')
+
+// import Member from '../components/Member.vue'
+const Member = () => import(/* webpackChunkName: "member" */ '../components/Member.vue')
+
+// import Social from '../components/Social.vue'
+const Social = () => import(/* webpackChunkName: "social" */ '../components/Social.vue')
+
+// import Manage from '../components/Manage.vue'
+const Manage = () => import(/* webpackChunkName: "manage" */ '../components/Manage.vue')
+
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
-
 const router = new VueRouter({
-  routes
+  routes: [
+    {
+      path: '/',
+      redirect: '/home'
+    },
+    {
+      path: '/home',
+      component: Home,
+      redirect: '/tenant',
+      children: [
+        { path: '/tenant', component: Tenant },
+        { path: '/contract', component: Contract },
+        { path: '/member', component: Member },
+        { path: '/manage', component: Manage },
+        { path: '/social', component: Social }
+      ]
+    }
+  ]
 })
 
 export default router
