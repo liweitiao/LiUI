@@ -1,24 +1,22 @@
-# admin
+# LiUI
 
-## Project setup
-```
-npm install
-```
+- vue组件
+    Button
+    Ldialog
+    Linput
+    Lcheckbox
+    Lradio
+    LradioGroup
+    Lswitch
+    LcheckboxGroup
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- 初始化vue项目
+    vue create demo
 
-### Lints and fixes files
-```
-npm run lint
-```
+- 安装组件库
+    yarn add LiUI
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- 全局导入
+    import LiUI from 'LiUI'
+    Vue.use(LiUI)

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <li-button type="primary">but</li-button>
+    <li-radio>nan</li-radio>
   </div>
 </template>
 

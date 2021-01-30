@@ -1,11 +1,23 @@
-module.exports = {
-  chainWebpack: config => {
-    config.when(process.env.NODE_ENV === 'production', config => {
-      config.entry('app').clear().add('./src/main-prod.js')
-    })
+const path  = require('path')
 
-    config.when(process.env.NODE_ENV === 'development', config => {
-      config.entry('app').clear().add('./src/main-dev.js')
+module.exports = {
+  pages: {
+    index: {
+      entry: 'src/main.js',
+      template: 'public/index.html',
+      filename: 'index.html'
+    }
+  },
+
+  // 扩展webpack配置,使webpages加入编译
+  chainWebpack: config => {
+    config.module
+    .rule('js')
+    .include.add(path.resolve(__dirname,'packages')).end()
+    .use('babel')
+    .loader('babel-loader')
+    .tap(options => {
+      return options
     })
   }
 }
